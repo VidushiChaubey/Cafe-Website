@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CafeADR</title>
+    <!-- Linking Font Awesome for icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    />
+    <!-- Linking Swiper CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+    <!-- Linking Custom CSS -->
+    <link rel="stylesheet" href="{% static 'app/css/home.css' %}" />
+    <link rel="stylesheet" href="{% static 'app/css/user.css' %}" />
+  </head>
+  <body>
+    <!-- Header / Navbar -->
+    <header>
+      <nav class="navbar">
+        <a href="#" class="nav-logo">
+          <h2 class="logo-text" style="color: white">
+            CafeADR<i class="fa fa-coffee" style="color: white"></i>
+          </h2>
+        </a>
+
+        <ul class="nav-menu">
+          <button id="menu-close-button" class="fas fa-times"></button>
+
+          <li class="nav-item">
+            <a href="#" class="nav-link">Home</a>
+          </li>
+          <li class="nav-item">
+            <a href="#about" class="nav-link">About</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a href="#menu" class="nav-link">Menu</a>
+            <div class="dropdown-content">
+              <a href="{% url 'menu' 'HB' %}">Hot Beverages</a>
+              <a href="{% url 'menu' 'CB' %}">cold Beverages</a>
+              <a href="{% url 'menu' 'RF' %}">Refreshment</a>
+              <a href="{% url 'menu' 'SC' %}">Special Combos</a>
+              <a href="{% url 'menu' 'DE' %}">Dessert</a>
+              <a href="{% url 'menu' 'BF' %}">Burger & French Fries</a>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a href="#gallery" class="nav-link">Gallery</a>
+          </li>
+          <li class="nav-item">
+            <a href="#contact" class="nav-link">Contact</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link">Account</a>
+            <div class="dropdown-content">
+              <a href="{% url 'userdetails' %}">Account details</a>
+              <a href="{% url 'profile' %}">Change details</a>
+              <a href="{% url 'orders' %}">Orders</a>
+              <a href="{% url 'passwordchange' %}">Change Password</a>
+              <a href="{% url 'logout' %}">Log Out</a>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'showcart' %}" class="nav-link"
+              ><i
+                class="fa fa-shopping-cart"
+                style="font-size: 24px; color: white"
+              ></i>
+              <span class="badge" style="font-weight: bold"
+                >{% if totalitem > 0 %} {{totalitem}} {% endif %}</span
+              ></a
+            >
+          </li>
+        </ul>
+
+        <button id="menu-open-button" class="fas fa-bars"></button>
+      </nav>
+    </header>
+
+    <main>
+      <!-- Hero section -->
+      <section class="hero-section">
+        <div class="section-content">
+          <div class="hero-details">
+            <h2 class="title">{{request.user|capfirst}}</h2>
+            <h3 class="subtitle">
+              Make your day great with our special coffee!
+            </h3>
+            <p class="description">
+              Welcome to our coffee paradise, where every bean tells a story and
+              every cup sparks joy.
+            </p>
+
+            <div class="buttons">
+              <a href="{% url 'menu' 'HB' %}" class="button order-now"
+                >Order Now</a
+              >
+              <a href="#contact" class="button contact-us">Contact Us</a>
+            </div>
+          </div>
+          <div class="hero-image-wrapper">
+            <img
+              src="{% static 'app/images/coffee-hero-section.png' %}"
+              alt="Coffee"
+              class="hero-image"
+            />
+          </div>
+        </div>
+      </section>
+
+      <!-- About section -->
+      <section class="about-section" id="about">
+        <div class="section-content">
+          <div class="about-image-wrapper">
+            <img
+              src="{% static 'app/images/about-image.jpg' %}"
+              alt="About"
+              class="about-image"
+            />
+          </div>
+          <div class="about-details">
+            <h2 class="section-title">About Us</h2>
+            <p class="text">
+              At Coffee House in Berndorf, Germany, we pride ourselves on being
+              a go-to destination for coffee lovers and conversation seekers
+              alike. We're dedicated to providing an exceptional coffee
+              experience in a cozy and inviting atmosphere, where guests can
+              relax, unwind, and enjoy their time in comfort.
+            </p>
+            <div class="social-link-list">
+              <a href="#" class="social-link"
+                ><i class="fa-brands fa-facebook"></i
+              ></a>
+              <a href="#" class="social-link"
+                ><i class="fa-brands fa-instagram"></i
+              ></a>
+              <a href="#" class="social-link"
+                ><i class="fa-brands fa-x-twitter"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Menu section -->
+      <section class="menu-section" id="menu">
+        <h2 class="section-title">Our Menu</h2>
+        <div class="section-content">
+          <ul class="menu-list">
+            <li class="menu-item">
+              <img
+                src="{% static 'app/images/hot-beverages.png' %}"
+                alt="Hot Beverages"
+                class="menu-image"
+              />
+              <div class="menu-details">
+                <a href="{% url 'menu' 'HB' %}" style="color: white"
+                  ><h3 class="name">Hot Beverages</h3></a
+                >
+                <p class="text">
+                  Wide range of Steaming hot coffee to make you fresh and light.
+                </p>
+              </div>
+            </li>
+            <li class="menu-item">
+              <img
+                src="{% static 'app/images/cold-beverages.png' %}"
+                alt="Cold Beverages"
+                class="menu-image"
+              />
+              <div class="menu-details">
+                <a href="{% url 'menu' 'CB' %}" style="color: white"
+                  ><h3 class="name">Cold Beverages</h3></a
+                >
+                <p class="text">
+                  Creamy and frothy cold coffee to make you cool.
+                </p>
+              </div>
+            </li>
+            <li class="menu-item">
+              <img
+                src="{% static 'app/images/refreshment.png' %}"
+                alt="Refreshment"
+                class="menu-image"
+              />
+              <div class="menu-details">
+                <a href="{% url 'menu' 'RF' %}" style="color: white"
+                  ><h3 class="name">Refreshment</h3></a
+                >
+                <p class="text">
+                  Fruit and icy refreshing drink to make feel refresh.
+                </p>
+              </div>
+            </li>
+            <li class="menu-item">
+              <img
+                src="{% static 'app/images/special-combo.png' %}"
+                alt="Special Combos"
+                class="menu-image"
+              />
+              <div class="menu-details">
+                <a href="{% url 'menu' 'SC' %}" style="color: white"
+                  ><h3 class="name">Special Combos</h3></a
+                >
+                <p class="text">
+                  Your favorite eating and drinking combations.
+                </p>
+              </div>
+            </li>
+            <li class="menu-item">
+              <img
+                src="{% static 'app/images/desserts.png' %}"
+                alt="Dessert"
+                class="menu-image"
+              />
+              <div class="menu-details">
+                <a href="{% url 'menu' 'DE' %}" style="color: white"
+                  ><h3 class="name">Dessert</h3></a
+                >
+                <p class="text">
+                  Satiate your palate and take you on a culinary treat.
+                </p>
+              </div>
+            </li>
+            <li class="menu-item">
+              <img
+                src="{% static 'app/images/burger-frenchfries.png' %}"
+                alt="burger & French Fries"
+                class="menu-image"
+              />
+              <div class="menu-details">
+                <a href="{% url 'menu' 'BF' %}" style="color: white"
+                  ><h3 class="name">Burger & French Fries</h3></a
+                >
+                <p class="text">
+                  Quick bites to satisfy your small size hunger.
+                </p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Testimonials section -->
+
+      <!-- Gallery section -->
+      <section class="gallery-section" id="gallery">
+        <h2 class="section-title">Gallery</h2>
+        <div class="section-content">
+          <ul class="gallery-list">
+            <li class="gallery-item">
+              <img
+                src="{% static 'app/images/gallery-1.jpg' %}"
+                alt="Gallery Image"
+                class="gallery-image"
+              />
+            </li>
+            <li class="gallery-item">
+              <img
+                src="{% static 'app/images/gallery2.webp' %}"
+                alt="Gallery Image"
+                class="gallery-image"
+              />
+            </li>
+            <li class="gallery-item">
+              <img
+                src="{% static 'app/images/gallery-3.jpg' %}"
+                alt="Gallery Image"
+                class="gallery-image"
+              />
+            </li>
+            <li class="gallery-item">
+              <img
+                src="{% static 'app/images/gallery4.jpg' %}"
+                alt="Gallery Image"
+                class="gallery-image"
+              />
+            </li>
+            <li class="gallery-item">
+              <img
+                src="{% static 'app/images/gallery5.jpg' %}"
+                alt="Gallery Image"
+                class="gallery-image"
+              />
+            </li>
+            <li class="gallery-item">
+              <img
+                src="{% static 'app/images/gallery-6.jpg' %}"
+                alt="Gallery Image"
+                class="gallery-image"
+              />
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Contact section -->
+      <section class="contact-section" id="contact">
+        <h2 class="section-title">Contact Us</h2>
+        <div class="section-content">
+          <ul class="contact-info-list">
+            <li class="contact-info">
+              <i class="fa-solid fa-location-crosshairs"></i>
+              <p>123 Campsite Avenue, Wilderness, CA 98765</p>
+            </li>
+            <li class="contact-info">
+              <i class="fa-regular fa-envelope"></i>
+              <p>info@coffeeshopwebsite.com</p>
+            </li>
+            <li class="contact-info">
+              <i class="fa-solid fa-phone"></i>
+              <p>(123) 456-78909</p>
+            </li>
+            <li class="contact-info">
+              <i class="fa-regular fa-clock"></i>
+              <p>Monday - Friday: 9:00 AM - 5:00 PM</p>
+            </li>
+            <li class="contact-info">
+              <i class="fa-regular fa-clock"></i>
+              <p>Saturday: 10:00 AM - 3:00 PM</p>
+            </li>
+            <li class="contact-info">
+              <i class="fa-regular fa-clock"></i>
+              <p>Sunday: Closed</p>
+            </li>
+            <li class="contact-info">
+              <i class="fa-solid fa-globe"></i>
+              <p>www.cafeadr.com</p>
+            </li>
+          </ul>
+
+          <form action="#" method="post" class="contact-form">
+            {% csrf_token %}
+            <input
+              type="text"
+              placeholder="Your name"
+              class="form-input"
+              name="name"
+              required
+            />
+            <input
+              type="email"
+              placeholder="Your email"
+              class="form-input"
+              name="email"
+              required
+            />
+            <textarea
+              placeholder="Your message"
+              class="form-input"
+              name="message"
+              required
+            ></textarea>
+            <button type="submit" class="button submit-button">Submit</button>
+          </form>
+        </div>
+      </section>
+
+      <!-- Footer section -->
+      <footer class="footer-section">
+        <div class="section-content">
+          <p class="copyright-text">© 2024 Coffee Shop</p>
+
+          <div class="social-link-list">
+            <a href="#" class="social-link"
+              ><i class="fa-brands fa-facebook"></i
+            ></a>
+            <a href="#" class="social-link"
+              ><i class="fa-brands fa-instagram"></i
+            ></a>
+            <a href="#" class="social-link"
+              ><i class="fa-brands fa-x-twitter"></i
+            ></a>
+          </div>
+
+          <p class="policy-text">
+            <a href="#" class="policy-link">Privacy policy</a>
+            <span class="separator">•</span>
+            <a href="#" class="policy-link">Refund policy</a>
+          </p>
+        </div>
+      </footer>
+    </main>
+
+    <!-- Linking Swiper script -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <!-- Linking custom script -->
+    <script src="{% static 'app/js/index.js' %}"></script>
+  </body>
+</html>
