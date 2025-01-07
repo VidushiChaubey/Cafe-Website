@@ -7,10 +7,12 @@ and Customer details tracking with User authentication systems, including login 
 
 ## Features
 
-- User authentication system
-- Responsive design
-- Dynamic content rendering
-- Form validation with JavaScript
+- Product catalog with categories
+- User registration and login
+- Shopping cart functionality
+- Order placement and payment 
+- Admin panel to manage products, orders, and users
+- Responsive design using CSS and JavaScript
 
 
 ## Environment Variables
